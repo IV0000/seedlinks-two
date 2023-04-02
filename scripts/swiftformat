@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-REQUIRED_VERSION='0.51.4'
+REQUIRED_VERSION='0.51.2'
 
 if ! type swiftformat >/dev/null; then
   echo "swiftformat not installed"
