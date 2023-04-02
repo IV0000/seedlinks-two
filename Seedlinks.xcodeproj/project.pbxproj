@@ -74,6 +74,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FFE343E829D9EBA3004C8AC1 /* Build configuration list for PBXNativeTarget "Seedlinks" */;
 			buildPhases = (
+				FFE343EB29DA0167004C8AC1 /* Swiftformat */,
 				FFE343D029D9EBA2004C8AC1 /* Sources */,
 				FFE343D129D9EBA2004C8AC1 /* Frameworks */,
 				FFE343D229D9EBA2004C8AC1 /* Resources */,
@@ -132,6 +133,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		FFE343EB29DA0167004C8AC1 /* Swiftformat */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Swiftformat;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/zsh;
+			shellScript = "scripts/swiftformat\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FFE343D029D9EBA2004C8AC1 /* Sources */ = {
