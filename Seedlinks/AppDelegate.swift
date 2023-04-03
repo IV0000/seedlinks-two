@@ -4,7 +4,7 @@
 //
 //  Created by Ivan Voloshchuk on 02/04/23.
 //
-
+// swiftlint:disable line_length
 import UIKit
 
 @main
@@ -12,10 +12,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         true
-    }
-
-    func ciao() {
-        var asjhd = 0
     }
 
     // MARK: UISceneSession Lifecycle
