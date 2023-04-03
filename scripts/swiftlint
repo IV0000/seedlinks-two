@@ -3,7 +3,7 @@
 #Fix for Apple Silicon
 export PATH="$PATH:/opt/homebrew/bin"
 
-REQUIRED_VERSION='0.50.3'
+REQUIRED_VERSION='0.51.0'
 
 if ! type swiftlint > /dev/null; then
   echo "swiftlint not installed"
