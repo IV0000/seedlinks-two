@@ -1,0 +1,20 @@
+#!/bin/zsh
+
+#Fix for Apple Silicon
+export PATH="$PATH:/opt/homebrew/bin"
+
+REQUIRED_VERSION='0.50.3'
+
+if ! type swiftlint > /dev/null; then
+  echo "swiftlint not installed"
+  exit 1
+fi
+
+CURRENT_VERSION=$(swiftlint --version)
+
+if [ $CURRENT_VERSION != $REQUIRED_VERSION ]; then
+  echo "swiftlint required version $REQUIRED_VERSION, current version $CURRENT_VERSION"
+  exit 1
+else
+  swiftlint $1
+fi

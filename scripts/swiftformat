@@ -1,6 +1,9 @@
 #!/bin/zsh
 
-REQUIRED_VERSION='0.51.2'
+#Fix for Apple Silicon
+export PATH="$PATH:/opt/homebrew/bin"
+
+REQUIRED_VERSION='0.51.4'
 
 if ! type swiftformat > /dev/null; then
   echo "swiftformat not installed"

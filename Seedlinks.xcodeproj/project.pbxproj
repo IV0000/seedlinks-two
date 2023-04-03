@@ -75,6 +75,7 @@
 			buildConfigurationList = FFE343E829D9EBA3004C8AC1 /* Build configuration list for PBXNativeTarget "Seedlinks" */;
 			buildPhases = (
 				FFE343EB29DA0167004C8AC1 /* Swiftformat */,
+				FFAC59A429DAACCA00D607ED /* Swiftlint */,
 				FFE343D029D9EBA2004C8AC1 /* Sources */,
 				FFE343D129D9EBA2004C8AC1 /* Frameworks */,
 				FFE343D229D9EBA2004C8AC1 /* Resources */,
@@ -135,6 +136,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		FFAC59A429DAACCA00D607ED /* Swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Swiftlint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/zsh;
+			shellScript = "scripts/swiftlint\n";
+		};
 		FFE343EB29DA0167004C8AC1 /* Swiftformat */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
