@@ -1,0 +1,33 @@
+#!/bin/zsh
+
+#Fix for Apple Silicon
+export PATH="$PATH:/opt/homebrew/bin"
+
+REQUIRED_VERSION='0.51.4'
+
+if ! type swiftformat > /dev/null; then
+  echo "swiftformat not installed"
+  exit 1
+fi
+
+CURRENT_VERSION=$(swiftformat --version)
+
+if [ $CURRENT_VERSION != $REQUIRED_VERSION ]; then
+  echo "swiftformat required version $REQUIRED_VERSION, current version $CURRENT_VERSION"
+
+  if type brew > /dev/null; then
+    echo "Upgrading"
+    brew update
+    brew upgrade swiftformat
+  fi
+
+  CURRENT_VERSION=$(swiftformat --version)
+
+  if [ $CURRENT_VERSION != $REQUIRED_VERSION ]; then
+    echo "exit"
+    exit 1
+  fi
+fi
+
+echo "Running swiftformat"
+swiftformat $1

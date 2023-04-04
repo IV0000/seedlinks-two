@@ -19,7 +19,7 @@ jobs:
   
   SwiftFormat:
     name: SwiftFormat
-    runs-on: macos-12
+    runs-on: macos-latest
     timeout-minutes: 5
     
     steps:
