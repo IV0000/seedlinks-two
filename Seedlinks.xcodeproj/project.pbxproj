@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FFAC59A729E5A95A00D607ED /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = FFAC59A629E5A95A00D607ED /* SnapKit */; };
+		FFAC59B229E6C0F900D607ED /* SwiftyBeaver in Frameworks */ = {isa = PBXBuildFile; productRef = FFAC59B129E6C0F900D607ED /* SwiftyBeaver */; };
 		FFE343D829D9EBA2004C8AC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE343D729D9EBA2004C8AC1 /* AppDelegate.swift */; };
 		FFE343DA29D9EBA2004C8AC1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE343D929D9EBA2004C8AC1 /* SceneDelegate.swift */; };
 		FFE343DC29D9EBA2004C8AC1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE343DB29D9EBA2004C8AC1 /* ViewController.swift */; };
@@ -33,6 +34,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FFAC59A729E5A95A00D607ED /* SnapKit in Frameworks */,
+				FFAC59B229E6C0F900D607ED /* SwiftyBeaver in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,6 +91,7 @@
 			name = Seedlinks;
 			packageProductDependencies = (
 				FFAC59A629E5A95A00D607ED /* SnapKit */,
+				FFAC59B129E6C0F900D607ED /* SwiftyBeaver */,
 			);
 			productName = Seedlinks;
 			productReference = FFE343D429D9EBA2004C8AC1 /* Seedlinks.app */;
@@ -120,6 +123,7 @@
 			mainGroup = FFE343CB29D9EBA1004C8AC1;
 			packageReferences = (
 				FFAC59A529E5A95A00D607ED /* XCRemoteSwiftPackageReference "SnapKit" */,
+				FFAC59B029E6C0F900D607ED /* XCRemoteSwiftPackageReference "SwiftyBeaver" */,
 			);
 			productRefGroup = FFE343D529D9EBA2004C8AC1 /* Products */;
 			projectDirPath = "";
@@ -421,6 +425,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		FFAC59B029E6C0F900D607ED /* XCRemoteSwiftPackageReference "SwiftyBeaver" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyBeaver/SwiftyBeaver";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -428,6 +440,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FFAC59A529E5A95A00D607ED /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		FFAC59B129E6C0F900D607ED /* SwiftyBeaver */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FFAC59B029E6C0F900D607ED /* XCRemoteSwiftPackageReference "SwiftyBeaver" */;
+			productName = SwiftyBeaver;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
