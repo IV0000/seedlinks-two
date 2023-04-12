@@ -10,6 +10,7 @@
 		FFAC59A729E5A95A00D607ED /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = FFAC59A629E5A95A00D607ED /* SnapKit */; };
 		FFAC59A929E6863900D607ED /* GardenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAC59A829E6863900D607ED /* GardenViewController.swift */; };
 		FFAC59AB29E6880D00D607ED /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAC59AA29E6880D00D607ED /* TabBar.swift */; };
+		FFAC59AF29E69D9C00D607ED /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAC59AE29E69D9C00D607ED /* CustomAnnotation.swift */; };
 		FFAC59B229E6C0F900D607ED /* SwiftyBeaver in Frameworks */ = {isa = PBXBuildFile; productRef = FFAC59B129E6C0F900D607ED /* SwiftyBeaver */; };
 		FFE343D829D9EBA2004C8AC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE343D729D9EBA2004C8AC1 /* AppDelegate.swift */; };
 		FFE343DA29D9EBA2004C8AC1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE343D929D9EBA2004C8AC1 /* SceneDelegate.swift */; };
@@ -22,6 +23,7 @@
 /* Begin PBXFileReference section */
 		FFAC59A829E6863900D607ED /* GardenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GardenViewController.swift; sourceTree = "<group>"; };
 		FFAC59AA29E6880D00D607ED /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
+		FFAC59AE29E69D9C00D607ED /* CustomAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
 		FFE343D429D9EBA2004C8AC1 /* Seedlinks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Seedlinks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFE343D729D9EBA2004C8AC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFE343D929D9EBA2004C8AC1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -48,10 +50,19 @@
 		FFAC59AC29E68BD100D607ED /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				FFAC59AD29E69D8C00D607ED /* Annotations */,
 				FFE343DB29D9EBA2004C8AC1 /* MapViewController.swift */,
 				FFAC59A829E6863900D607ED /* GardenViewController.swift */,
 			);
 			path = Scenes;
+			sourceTree = "<group>";
+		};
+		FFAC59AD29E69D8C00D607ED /* Annotations */ = {
+			isa = PBXGroup;
+			children = (
+				FFAC59AE29E69D9C00D607ED /* CustomAnnotation.swift */,
+			);
+			path = Annotations;
 			sourceTree = "<group>";
 		};
 		FFE343CB29D9EBA1004C8AC1 = {
@@ -208,6 +219,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FFE343DC29D9EBA2004C8AC1 /* MapViewController.swift in Sources */,
+				FFAC59AF29E69D9C00D607ED /* CustomAnnotation.swift in Sources */,
 				FFAC59A929E6863900D607ED /* GardenViewController.swift in Sources */,
 				FFE343D829D9EBA2004C8AC1 /* AppDelegate.swift in Sources */,
 				FFE343DA29D9EBA2004C8AC1 /* SceneDelegate.swift in Sources */,
