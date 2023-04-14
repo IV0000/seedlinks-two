@@ -12,6 +12,8 @@
 		FFAC59AB29E6880D00D607ED /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAC59AA29E6880D00D607ED /* TabBar.swift */; };
 		FFAC59AF29E69D9C00D607ED /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAC59AE29E69D9C00D607ED /* CustomAnnotation.swift */; };
 		FFAC59B229E6C0F900D607ED /* SwiftyBeaver in Frameworks */ = {isa = PBXBuildFile; productRef = FFAC59B129E6C0F900D607ED /* SwiftyBeaver */; };
+		FFAC59B529E7268900D607ED /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAC59B429E7268900D607ED /* LocationManager.swift */; };
+		FFAC59B829E7DEE400D607ED /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAC59B729E7DEE400D607ED /* LocationViewModel.swift */; };
 		FFE343D829D9EBA2004C8AC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE343D729D9EBA2004C8AC1 /* AppDelegate.swift */; };
 		FFE343DA29D9EBA2004C8AC1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE343D929D9EBA2004C8AC1 /* SceneDelegate.swift */; };
 		FFE343DC29D9EBA2004C8AC1 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE343DB29D9EBA2004C8AC1 /* MapViewController.swift */; };
@@ -24,6 +26,8 @@
 		FFAC59A829E6863900D607ED /* GardenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GardenViewController.swift; sourceTree = "<group>"; };
 		FFAC59AA29E6880D00D607ED /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		FFAC59AE29E69D9C00D607ED /* CustomAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
+		FFAC59B429E7268900D607ED /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		FFAC59B729E7DEE400D607ED /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		FFE343D429D9EBA2004C8AC1 /* Seedlinks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Seedlinks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFE343D729D9EBA2004C8AC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFE343D929D9EBA2004C8AC1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -65,6 +69,22 @@
 			path = Annotations;
 			sourceTree = "<group>";
 		};
+		FFAC59B329E7266000D607ED /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				FFAC59B429E7268900D607ED /* LocationManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		FFAC59B629E7DECF00D607ED /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				FFAC59B729E7DEE400D607ED /* LocationViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		FFE343CB29D9EBA1004C8AC1 = {
 			isa = PBXGroup;
 			children = (
@@ -88,6 +108,8 @@
 				FFE343D929D9EBA2004C8AC1 /* SceneDelegate.swift */,
 				FFAC59AA29E6880D00D607ED /* TabBar.swift */,
 				FFAC59AC29E68BD100D607ED /* Scenes */,
+				FFAC59B629E7DECF00D607ED /* ViewModels */,
+				FFAC59B329E7266000D607ED /* Managers */,
 				FFE343DD29D9EBA2004C8AC1 /* Main.storyboard */,
 				FFE343E029D9EBA3004C8AC1 /* Assets.xcassets */,
 				FFE343E229D9EBA3004C8AC1 /* LaunchScreen.storyboard */,
@@ -221,9 +243,11 @@
 				FFE343DC29D9EBA2004C8AC1 /* MapViewController.swift in Sources */,
 				FFAC59AF29E69D9C00D607ED /* CustomAnnotation.swift in Sources */,
 				FFAC59A929E6863900D607ED /* GardenViewController.swift in Sources */,
+				FFAC59B529E7268900D607ED /* LocationManager.swift in Sources */,
 				FFE343D829D9EBA2004C8AC1 /* AppDelegate.swift in Sources */,
 				FFE343DA29D9EBA2004C8AC1 /* SceneDelegate.swift in Sources */,
 				FFAC59AB29E6880D00D607ED /* TabBar.swift in Sources */,
+				FFAC59B829E7DEE400D607ED /* LocationViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,6 +397,8 @@
 				DEVELOPMENT_TEAM = 55H4ABU399;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Seedlinks/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "GIMME THE LOCATION";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "GIMME THE LOCATION";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -402,6 +428,8 @@
 				DEVELOPMENT_TEAM = 55H4ABU399;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Seedlinks/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "GIMME THE LOCATION";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "GIMME THE LOCATION";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

@@ -5,13 +5,18 @@
 //  Created by Ivan Voloshchuk on 02/04/23.
 //
 
+import Combine
+import Foundation
 import MapKit
 import SnapKit
+import SwiftyBeaver
 import UIKit
 
 class MapViewController: UIViewController {
     private let centerPositionButton = UIButton()
     private let mapView = MKMapView()
+    private lazy var locationViewModel = LocationViewModel()
+    private var cancellables: [AnyCancellable] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,10 +30,17 @@ class MapViewController: UIViewController {
         setRomePin()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+//        LocationManager.shared.start()
+        centerUserPosition()
+    }
+
     private func setStyle() {
         view.backgroundColor = .black
 
         mapView.overrideUserInterfaceStyle = .dark
+        mapView.showsUserLocation = true
 
         centerPositionButton.backgroundColor = .white
         centerPositionButton.layer.cornerRadius = 20
@@ -37,6 +49,36 @@ class MapViewController: UIViewController {
         centerPositionButton.setTitle("Center", for: .normal)
         centerPositionButton.setTitleColor(UIColor.black, for: .normal)
         centerPositionButton.setTitleColor(UIColor.black.withAlphaComponent(0.6), for: .highlighted)
+        centerPositionButton.addTarget(self, action: #selector(centerPosition), for: .touchUpInside)
+    }
+
+    @objc func centerPosition() {
+        centerUserPosition()
+    }
+
+    private func centerUserPosition() {
+        locationViewModel.getLastLocation()
+            .first()
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { value in
+                switch value {
+                case .finished:
+                    SwiftyBeaver.info("Finished")
+                case let .failure(error):
+                    SwiftyBeaver.error(error)
+                }
+            }, receiveValue: { self.centerMapRegion(with: $0) })
+            .store(in: &cancellables)
+    }
+
+    private func centerMapRegion(with location: CLLocation) {
+        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude,
+                                            longitude: location.coordinate.longitude)
+        let region = MKCoordinateRegion(center: center,
+                                        span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        DispatchQueue.main.async {
+            self.mapView.setRegion(region, animated: true)
+        }
     }
 
     private func setConstraints() {
