@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FF312DE329FA7231002A0A36 /* HelperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF312DE229FA7230002A0A36 /* HelperViewController.swift */; };
 		FFAC59A729E5A95A00D607ED /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = FFAC59A629E5A95A00D607ED /* SnapKit */; };
 		FFAC59A929E6863900D607ED /* GardenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAC59A829E6863900D607ED /* GardenViewController.swift */; };
 		FFAC59AB29E6880D00D607ED /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAC59AA29E6880D00D607ED /* TabBar.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FF312DE229FA7230002A0A36 /* HelperViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperViewController.swift; sourceTree = "<group>"; };
 		FFAC59A829E6863900D607ED /* GardenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GardenViewController.swift; sourceTree = "<group>"; };
 		FFAC59AA29E6880D00D607ED /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		FFAC59AE29E69D9C00D607ED /* CustomAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
@@ -56,6 +58,7 @@
 			children = (
 				FFAC59AD29E69D8C00D607ED /* Annotations */,
 				FFE343DB29D9EBA2004C8AC1 /* MapViewController.swift */,
+				FF312DE229FA7230002A0A36 /* HelperViewController.swift */,
 				FFAC59A829E6863900D607ED /* GardenViewController.swift */,
 			);
 			path = Scenes;
@@ -243,6 +246,7 @@
 				FFE343DC29D9EBA2004C8AC1 /* MapViewController.swift in Sources */,
 				FFAC59AF29E69D9C00D607ED /* CustomAnnotation.swift in Sources */,
 				FFAC59A929E6863900D607ED /* GardenViewController.swift in Sources */,
+				FF312DE329FA7231002A0A36 /* HelperViewController.swift in Sources */,
 				FFAC59B529E7268900D607ED /* LocationManager.swift in Sources */,
 				FFE343D829D9EBA2004C8AC1 /* AppDelegate.swift in Sources */,
 				FFE343DA29D9EBA2004C8AC1 /* SceneDelegate.swift in Sources */,
