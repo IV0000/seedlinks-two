@@ -4,6 +4,7 @@
 //
 //  Created by Ivan Voloshchuk on 12/04/23.
 //
+// swiftlint:disable line_length
 
 import Combine
 import CoreLocation
@@ -11,35 +12,72 @@ import Foundation
 import SwiftyBeaver
 
 // TODO:
-/// Create a struct to handle custom error instead of using Error struct
-/// Review the access levels of funcs and vars
+/// Create a struct to handle custom error instead of using CLError
+/// Add reverse geo coded funcs
 
 class LocationManager: NSObject {
     static let shared = LocationManager()
 
     private let locationManager: CLLocationManager
-    private var mostRecentLocationSubject = CurrentValueSubject<Result<CLLocation, Error>, Never>(Result.success(CLLocation())) // Fix: when I open the app I have the map centered to ocean
+    private var mostRecentLocationSubject = PassthroughSubject<Result<CLLocation, CLError>, Never>()
+    private var locationAuthSubject = PassthroughSubject<Result<CLAuthorizationStatus, CLError>, Never>()
 
     override private init() {
         locationManager = CLLocationManager()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
         super.init()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.delegate = self
     }
 
-    func start() {
-        // Rewrite in a different method
-        locationManager.requestAlwaysAuthorization()
+    // For now will ask only when in use auth, in future might be needed to ask always permission
+    public func requestWhenInUseAuthorization() -> AnyPublisher<CLAuthorizationStatus, CLError> {
+        locationManager.requestWhenInUseAuthorization()
+        return locationAuthSubject.dematerialize()
     }
 
-    /// Starts updating the current location
-    /// - Returns: a location publisher with the last current location
-    public func traceLocation() -> AnyPublisher<CLLocation, Error> {
+    /// Request a one time user's location
+    /// - Returns: a CLLocation publisher with the current location
+    public func requestLocation() -> AnyPublisher<CLLocation, CLError> {
+        guard isLocationAuthorized() else {
+            return Fail<CLLocation, CLError>(error: CLError(.denied)).eraseToAnyPublisher()
+        }
+        defer { locationManager.requestLocation() }
+        return locationPublisher()
+    }
+
+    /// Starts tracing the user's current location
+    /// - Returns: a CLLocation publisher with the last current location
+    public func traceLocationUpdates() -> AnyPublisher<CLLocation, CLError> {
+        guard isLocationAuthorized() else {
+            return Fail<CLLocation, CLError>(error: CLError(.denied)).eraseToAnyPublisher()
+        }
         defer { locationManager.startUpdatingLocation() }
         return locationPublisher()
     }
 
-    private func locationPublisher() -> AnyPublisher<CLLocation, Error> {
+    /// Stops updating the location
+    public func stopTracingLocation() {
+        locationManager.stopUpdatingLocation()
+        mostRecentLocationSubject.send(completion: .finished)
+    }
+
+    public func isLocationAuthorized() -> Bool {
+        locationManager.authorizationStatus == .authorizedAlways || locationManager.authorizationStatus == .authorizedWhenInUse
+    }
+
+    public func isLocationEnabled() -> Bool {
+        CLLocationManager.locationServicesEnabled()
+    }
+
+    public func isLocationDenied() -> Bool {
+        locationManager.authorizationStatus == .denied || locationManager.authorizationStatus == .restricted
+    }
+
+    public func isLocationNotDetermined() -> Bool {
+        locationManager.authorizationStatus == .notDetermined
+    }
+
+    private func locationPublisher() -> AnyPublisher<CLLocation, CLError> {
         mostRecentLocationSubject
             .dematerialize()
             .compactMap { $0 }
@@ -52,18 +90,35 @@ extension LocationManager: CLLocationManagerDelegate {
         guard let mostRecentLocation = locations.last else {
             return
         }
-        SwiftyBeaver.debug("Recent location \(mostRecentLocation)")
+        SwiftyBeaver.debug("\nCurrent location -> [LAT \(mostRecentLocation.coordinate.latitude)  LON \(mostRecentLocation.coordinate.longitude)]")
         mostRecentLocationSubject.send(.success(mostRecentLocation))
     }
 
     func locationManager(_: CLLocationManager, didFailWithError error: Error) {
-        mostRecentLocationSubject.send(.failure(error))
-        SwiftyBeaver.debug(error.localizedDescription)
-//        locationManager.stopUpdatingLocation()
+        if let error = error as? CLError {
+            locationAuthSubject.send(.failure(error))
+            mostRecentLocationSubject.send(.failure(error))
+            SwiftyBeaver.debug(error.localizedDescription)
+        }
     }
 
     func locationManager(_: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        SwiftyBeaver.debug(status)
+        locationAuthSubject.send(.success(status))
+        switch status {
+        case .authorizedAlways:
+            SwiftyBeaver.debug("authorizedAlways")
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+            SwiftyBeaver.debug("notDetermined")
+        case .restricted:
+            SwiftyBeaver.debug("restricted")
+        case .denied:
+            SwiftyBeaver.debug("denied")
+        case .authorizedWhenInUse:
+            SwiftyBeaver.debug("authorizedWhenInUse")
+        @unknown default:
+            SwiftyBeaver.debug("uknown")
+        }
     }
 }
 
@@ -76,3 +131,5 @@ extension Publisher {
             .eraseToAnyPublisher()
     }
 }
+
+// swiftlint:enable line_length
