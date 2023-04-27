@@ -12,7 +12,7 @@ import SnapKit
 import SwiftyBeaver
 import UIKit
 
-class MapViewController: UIViewController {
+class MapViewController: HelperViewController {
     private let centerPositionButton = UIButton()
     private let mapView = MKMapView()
     private lazy var locationViewModel = LocationViewModel()
@@ -24,17 +24,13 @@ class MapViewController: UIViewController {
         mapView.delegate = self
         mapView.register(CustomAnnotationView.self,
                          forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
-
         setStyle()
+        requestAuthorization()
         setConstraints()
         setRomePin()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-//        LocationManager.shared.start()
-        centerUserPosition()
-    }
+    // MARK: UI
 
     private func setStyle() {
         view.backgroundColor = .black
@@ -49,36 +45,7 @@ class MapViewController: UIViewController {
         centerPositionButton.setTitle("Center", for: .normal)
         centerPositionButton.setTitleColor(UIColor.black, for: .normal)
         centerPositionButton.setTitleColor(UIColor.black.withAlphaComponent(0.6), for: .highlighted)
-        centerPositionButton.addTarget(self, action: #selector(centerPosition), for: .touchUpInside)
-    }
-
-    @objc func centerPosition() {
-        centerUserPosition()
-    }
-
-    private func centerUserPosition() {
-        locationViewModel.getLastLocation()
-            .first()
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { value in
-                switch value {
-                case .finished:
-                    SwiftyBeaver.info("Finished")
-                case let .failure(error):
-                    SwiftyBeaver.error(error)
-                }
-            }, receiveValue: { self.centerMapRegion(with: $0) })
-            .store(in: &cancellables)
-    }
-
-    private func centerMapRegion(with location: CLLocation) {
-        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude,
-                                            longitude: location.coordinate.longitude)
-        let region = MKCoordinateRegion(center: center,
-                                        span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-        DispatchQueue.main.async {
-            self.mapView.setRegion(region, animated: true)
-        }
+        centerPositionButton.addTarget(self, action: #selector(centerPositionAction), for: .touchUpInside)
     }
 
     private func setConstraints() {
@@ -107,6 +74,58 @@ class MapViewController: UIViewController {
         rome.title = "Rome"
         rome.coordinate = CLLocationCoordinate2D(latitude: 41.902782, longitude: 12.496366)
         mapView.addAnnotation(rome)
+    }
+
+    // MARK: SIDE EFFECTS
+
+    @objc func centerPositionAction() {
+        centerUserPosition()
+    }
+
+    private func requestAuthorization() {
+        locationViewModel.requestWhenInUseAuthorization()
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { value in
+                switch value {
+                case .finished:
+                    return print("Finished")
+                case let .failure(error):
+                    return print("error \(error.localizedDescription)")
+                }
+            }, receiveValue: { value in
+                guard value else {
+                    self.showGoToSettingsAlert()
+                    return
+                }
+                print("Do something else")
+            })
+            .store(in: &cancellables)
+    }
+
+    private func centerUserPosition() {
+        locationViewModel.getCurrentLocation()
+            .first()
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { value in
+                switch value {
+                case .finished:
+                    SwiftyBeaver.info("Finished")
+                case let .failure(error):
+                    SwiftyBeaver.error(error.localizedDescription)
+                    self.showGoToSettingsAlert()
+                }
+            }, receiveValue: { self.centerMapRegion(with: $0) })
+            .store(in: &cancellables)
+    }
+
+    private func centerMapRegion(with location: CLLocation) {
+        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude,
+                                            longitude: location.coordinate.longitude)
+        let region = MKCoordinateRegion(center: center,
+                                        span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        DispatchQueue.main.async {
+            self.mapView.setRegion(region, animated: true)
+        }
     }
 }
 
